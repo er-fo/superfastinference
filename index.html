@@ -90,7 +90,7 @@
   .below {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     gap: 32px;
     flex-wrap: wrap;
     margin-top: 56px;
@@ -146,11 +146,16 @@
 
   button:hover { background: var(--ember); border-color: var(--ember); }
 
+  .cta { position: relative; }
+
   .note {
-    margin-top: 14px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
     font-size: 11px;
     color: var(--faint);
-    min-height: 1em;
+    white-space: nowrap;
   }
 
   .note a { color: var(--mute); }
@@ -179,7 +184,7 @@
   <div class="below">
     <p class="tagline">Same models. Same price.<br><strong>A tenth of the wait.</strong></p>
 
-    <div>
+    <div class="cta">
       <form id="access" novalidate>
         <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" aria-label="Work email">
         <button type="submit">request_access &crarr;</button>
