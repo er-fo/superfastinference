@@ -59,7 +59,7 @@
 
   .sweep .reveal {
     clip-path: inset(0 100% 0 0);
-    animation: sweepin 1.15s steps(24, end) forwards;
+    animation: sweepin .45s steps(24, end) forwards;
   }
 
   .sweep .head {
@@ -69,12 +69,12 @@
     left: 0;
     width: 3px;
     background: var(--ember);
-    animation: headmove 1.15s steps(24, end) forwards;
+    animation: headmove .45s steps(24, end) forwards;
   }
 
   .sweep.l2 { color: var(--ember); }
-  .sweep.l2 .reveal { animation-delay: 1.05s; }
-  .sweep.l2 .head { animation-delay: 1.05s; opacity: 0; }
+  .sweep.l2 .reveal { animation-delay: .4s; }
+  .sweep.l2 .head { animation-delay: .4s; opacity: 0; }
 
   @keyframes sweepin {
     from { clip-path: inset(0 100% 0 0); }
@@ -95,7 +95,7 @@
     flex-wrap: wrap;
     margin-top: 56px;
     opacity: 0;
-    animation: fadein .8s ease 2.5s forwards;
+    animation: fadein .5s ease 1s forwards;
   }
 
   @keyframes fadein { to { opacity: 1; } }

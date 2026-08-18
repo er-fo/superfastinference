@@ -1,0 +1,11 @@
+name = "superfastinference-api"
+main = "src/index.js"
+compatibility_date = "2026-08-18"
+
+routes = [
+  { pattern = "api.superfastinference.com", custom_domain = true }
+]
+
+[[kv_namespaces]]
+binding = "SIGNUPS"
+id = "7fbfd58d348342dea45dba7d2dd11edc"
