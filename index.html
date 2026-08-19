@@ -326,6 +326,31 @@
 
   .row.ours .total { color: var(--ember); }
 
+  .score-head {
+    text-align: right;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 12px;
+  }
+
+  .score {
+    margin-left: auto;
+    padding-left: 12px;
+    font-size: 12px;
+    color: var(--faint);
+    white-space: nowrap;
+    opacity: 0;
+  }
+
+  .go .score {
+    animation: fadein .3s ease forwards;
+    animation-delay: calc(var(--d) + .45s);
+  }
+
+  .row.ours .score { color: var(--ember); font-weight: bold; }
+
   .axis {
     display: flex;
     justify-content: space-between;
@@ -360,6 +385,8 @@
     .track .head { display: none; }
     .total { opacity: 1; }
     .go .total { animation: none; }
+    .score { opacity: 1; }
+    .go .score { animation: none; }
   }
 </style>
 </head>
@@ -399,29 +426,32 @@
 
     <div class="panel">
       <div class="panel-title"><a href="https://huggingface.co/datasets/SWE-bench/SWE-smith-trajectories">coding agent</a> &middot; median turn*</div>
+      <div class="score-head">swe-bench pro</div>
 
       <div class="row" style="--d:0s">
-        <div class="row-label">no cache reuse</div>
+        <div class="row-label">sonnet 5 &middot; no cache reuse</div>
         <div class="bar">
           <div class="track">
             <div class="seg cached" data-s="3.68"></div>
             <div class="seg novel" data-s="0.06"></div>
-            <div class="seg out" data-s="1.15"></div>
+            <div class="seg out" data-s="0.84"></div>
             <div class="head"></div>
           </div>
-          <div class="total">4.8s</div>
+          <div class="total">4.6s</div>
+          <span class="score">63.2</span>
         </div>
       </div>
 
       <div class="row" style="--d:.18s">
-        <div class="row-label">cache reuse</div>
+        <div class="row-label">sonnet 5 &middot; cache reuse</div>
         <div class="bar">
           <div class="track">
             <div class="seg novel" data-s="0.06"></div>
-            <div class="seg out" data-s="1.15"></div>
+            <div class="seg out" data-s="0.84"></div>
             <div class="head"></div>
           </div>
-          <div class="total">1.2s</div>
+          <div class="total">0.9s</div>
+          <span class="score">63.2</span>
         </div>
       </div>
 
@@ -434,35 +464,39 @@
             <div class="head"></div>
           </div>
           <div class="total">~0.3s</div>
+          <span class="score">61.7</span>
         </div>
       </div>
     </div>
 
     <div class="panel">
       <div class="panel-title"><a href="https://huggingface.co/datasets/xlangai/AgentNet">computer use</a> &middot; median step**</div>
+      <div class="score-head">osworld</div>
 
       <div class="row" style="--d:0s">
-        <div class="row-label">no cache reuse</div>
+        <div class="row-label">sonnet 5 &middot; no cache reuse</div>
         <div class="bar">
           <div class="track">
             <div class="seg cached" data-s="6.78"></div>
             <div class="seg novel" data-s="0.41"></div>
-            <div class="seg out" data-s="8.16"></div>
+            <div class="seg out" data-s="5.99"></div>
             <div class="head"></div>
           </div>
-          <div class="total">15.4s</div>
+          <div class="total">13.2s</div>
+          <span class="score">81.2</span>
         </div>
       </div>
 
       <div class="row" style="--d:.18s">
-        <div class="row-label">cache reuse</div>
+        <div class="row-label">sonnet 5 &middot; cache reuse</div>
         <div class="bar">
           <div class="track">
             <div class="seg novel" data-s="0.41"></div>
-            <div class="seg out" data-s="8.16"></div>
+            <div class="seg out" data-s="5.99"></div>
             <div class="head"></div>
           </div>
-          <div class="total">8.6s</div>
+          <div class="total">6.4s</div>
+          <span class="score">81.2</span>
         </div>
       </div>
 
@@ -475,6 +509,7 @@
             <div class="head"></div>
           </div>
           <div class="total">~1.9s</div>
+          <span class="score">84.3</span>
         </div>
       </div>
 
@@ -484,6 +519,7 @@
 
       <p class="fn">*18.4K cached context + 300 novel + 63 output tokens. cache reuse processes only novel tokens.<br>
       **33.9K cached context + 2K novel (one screenshot) + 449 output tokens. cache reuse processes only novel tokens.<br>
+      sonnet 5 rows modelled at its measured api output speed.<br>
       ***running Qwen3.8-27B on our own stack.</p>
     </div>
     </div>
@@ -522,7 +558,7 @@
   const AXIS_S = 16;
 
   function layoutChart() {
-    const gutter = 76; // room for the total label right of the longest bar
+    const gutter = 130; // room for total + score columns right of the longest bar
     const cs = getComputedStyle(chart);
     const content = chart.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     const scale = Math.min(44, (content - gutter) / AXIS_S);
