@@ -227,6 +227,7 @@
   .legend .k-ours::before { background: var(--ember); }
 
   .panel { margin-bottom: 48px; }
+  .panel:last-of-type { margin-bottom: 0; }
 
   .panel-title {
     font-size: 11px;
@@ -367,7 +368,23 @@
     color: var(--faint);
     max-width: 640px;
     margin-top: 26px;
+    margin-bottom: 0;
   }
+
+  .contact {
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--faint);
+  }
+
+  .contact a {
+    color: var(--mute);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+
+  .contact a:hover { color: var(--ink); }
 
   @media (max-width: 560px) {
     .below { margin-top: 40px; }
@@ -523,6 +540,8 @@
       ***running Qwen3.8-27B on our own stack.</p>
     </div>
     </div>
+
+    <p class="contact">contact &mdash; <a href="mailto:erik@superfastinference.com">erik@superfastinference.com</a> &middot; <a href="https://linkedin.com/in/erik-fornlund">linkedin.com/in/erik-fornlund</a></p>
   </div>
 </section>
 
