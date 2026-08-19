@@ -21,25 +21,36 @@
     --mute: #6E695E;
     --faint: #9B9588;
     --line: #C6C0B2;
+    --tile: 8px;
+    --dot-cached: #D5D0C0;
+    --dot-novel: #8A8371;
+    --dot-out: #57523F;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html, body { height: 100%; }
 
   body {
     background: var(--paper);
     color: var(--ink);
     font-family: 'Fragment Mono', monospace;
+  }
+
+  section {
     display: flex;
-    align-items: center;
     justify-content: center;
     padding: 24px;
   }
 
-  main {
+  .inner {
     width: 100%;
     max-width: 880px;
+  }
+
+  /* ============ hero ============ */
+
+  .hero {
+    min-height: 82svh;
+    align-items: center;
   }
 
   h1 {
@@ -92,7 +103,7 @@
   .below {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 32px;
     flex-wrap: wrap;
     margin-top: 56px;
@@ -150,17 +161,188 @@
 
   .cta { position: relative; }
 
+  .sub {
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--faint);
+  }
+
   .note {
     position: absolute;
     top: 100%;
     left: 0;
-    margin-top: 10px;
+    margin-top: 8px;
     font-size: 11px;
     color: var(--faint);
     white-space: nowrap;
   }
 
   .note a { color: var(--mute); }
+
+  /* ============ proof ============ */
+
+  .proof { padding-bottom: 96px; }
+
+  .box {
+    border: 1.5px solid var(--line);
+    padding: 40px;
+  }
+
+  .box h2 {
+    font-family: 'Doto', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 560px) {
+    .box { padding: 24px 18px; }
+  }
+
+  .legend {
+    display: flex;
+    gap: 24px;
+    row-gap: 8px;
+    font-size: 11px;
+    color: var(--mute);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .legend span::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 7px;
+  }
+
+  .legend .k-cached::before { background: var(--dot-cached); }
+  .legend .k-novel::before { background: var(--dot-novel); }
+  .legend .k-out::before { background: var(--dot-out); }
+  .legend .k-ours::before { background: var(--ember); }
+
+  .panel { margin-bottom: 48px; }
+
+  .panel-title {
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .panel-title a {
+    color: var(--faint);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+
+  .panel-title a:hover { color: var(--mute); }
+
+  .row { margin-bottom: 18px; }
+
+  .row-label {
+    font-size: 13px;
+    color: var(--mute);
+    margin-bottom: 6px;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    height: 24px;
+  }
+
+  .track {
+    display: flex;
+    position: relative;
+    height: 100%;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .go .track {
+    animation: sweepin .5s steps(20, end) forwards;
+    animation-delay: var(--d);
+  }
+
+  .track .head {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    background: var(--ember);
+    opacity: 0;
+  }
+
+  .go .track .head {
+    animation: headmove .5s steps(20, end) forwards;
+    animation-delay: var(--d);
+  }
+
+  .seg { height: 100%; flex: none; margin-right: 6px; }
+  .seg:last-child { margin-right: 0; }
+
+  .seg.cached {
+    background: radial-gradient(circle 2.6px at 4px 4px, var(--dot-cached) 2.2px, transparent 2.5px) 0 0 / var(--tile) var(--tile);
+  }
+
+  .seg.novel {
+    background: radial-gradient(circle 2.6px at 4px 4px, var(--dot-novel) 2.2px, transparent 2.5px) 0 0 / var(--tile) var(--tile);
+  }
+
+  .seg.out {
+    background: radial-gradient(circle 2.6px at 4px 4px, var(--dot-out) 2.2px, transparent 2.5px) 0 0 / var(--tile) var(--tile);
+  }
+
+  .total {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--mute);
+    white-space: nowrap;
+    margin-left: 6px;
+    opacity: 0;
+  }
+
+  .go .total {
+    animation: fadein .3s ease forwards;
+    animation-delay: calc(var(--d) + .45s);
+  }
+
+  .row.ours .row-label { color: var(--ember); font-weight: bold; }
+
+  .row.ours .seg.novel {
+    background: radial-gradient(circle 2.6px at 4px 4px, var(--ink) 2.2px, transparent 2.5px) 0 0 / var(--tile) var(--tile);
+  }
+
+  .row.ours .seg.out {
+    background: radial-gradient(circle 2.6px at 4px 4px, var(--ember) 2.2px, transparent 2.5px) 0 0 / var(--tile) var(--tile);
+  }
+
+  .row.ours .total { color: var(--ember); }
+
+  .axis {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    padding-top: 6px;
+    font-size: 10px;
+    color: var(--faint);
+    margin-top: 26px;
+  }
+
+  .fn {
+    font-size: 10.5px;
+    line-height: 1.8;
+    color: var(--faint);
+    max-width: 640px;
+    margin-top: 26px;
+  }
 
   @media (max-width: 560px) {
     .below { margin-top: 40px; }
@@ -173,28 +355,140 @@
     .sweep .reveal { animation: none; clip-path: none; }
     .sweep .head { display: none; }
     .below { animation: none; opacity: 1; }
+    .track { clip-path: none; }
+    .go .track { animation: none; }
+    .track .head { display: none; }
+    .total { opacity: 1; }
+    .go .total { animation: none; }
   }
 </style>
 </head>
 <body>
-<main>
-  <h1>
-    <span class="sweep l1"><span class="reveal">Your agents,</span><span class="head"></span></span>
-    <span class="sweep l2"><span class="reveal">10x faster.</span><span class="head"></span></span>
-  </h1>
+<section class="hero">
+  <div class="inner">
+    <h1>
+      <span class="sweep l1"><span class="reveal">Your agents,</span><span class="head"></span></span>
+      <span class="sweep l2"><span class="reveal">10x faster.</span><span class="head"></span></span>
+    </h1>
 
-  <div class="below">
-    <p class="tagline">Same models. Same price.<br><strong>A tenth of the wait.</strong></p>
+    <div class="below">
+      <p class="tagline">Same models. Same price.<br><strong>A tenth of the wait.</strong></p>
 
-    <div class="cta">
-      <form id="access" novalidate>
-        <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" aria-label="Work email">
-        <button type="submit">request_access &crarr;</button>
-      </form>
-      <p class="note" id="note"></p>
+      <div class="cta">
+        <form id="access" novalidate>
+          <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" aria-label="Work email">
+          <button type="submit">request_access &crarr;</button>
+        </form>
+        <p class="sub">Open-weight models, served for agent loops.<br>Currently in private beta.</p>
+        <p class="note" id="note"></p>
+      </div>
     </div>
   </div>
-</main>
+</section>
+
+<section class="proof">
+  <div class="inner">
+    <div class="box" id="chart">
+    <h2>Agent speed</h2>
+    <div class="legend">
+      <span class="k-cached">cached tokens</span>
+      <span class="k-novel">novel tokens</span>
+      <span class="k-out">output tokens</span>
+      <span class="k-ours">superfast (same token types)</span>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><a href="https://huggingface.co/datasets/SWE-bench/SWE-smith-trajectories">coding agent</a> &middot; median turn*</div>
+
+      <div class="row" style="--d:0s">
+        <div class="row-label">no cache reuse</div>
+        <div class="bar">
+          <div class="track">
+            <div class="seg cached" data-s="3.68"></div>
+            <div class="seg novel" data-s="0.06"></div>
+            <div class="seg out" data-s="1.15"></div>
+            <div class="head"></div>
+          </div>
+          <div class="total">4.8s</div>
+        </div>
+      </div>
+
+      <div class="row" style="--d:.18s">
+        <div class="row-label">cache reuse</div>
+        <div class="bar">
+          <div class="track">
+            <div class="seg novel" data-s="0.06"></div>
+            <div class="seg out" data-s="1.15"></div>
+            <div class="head"></div>
+          </div>
+          <div class="total">1.2s</div>
+        </div>
+      </div>
+
+      <div class="row ours" style="--d:.36s">
+        <div class="row-label">superfast***</div>
+        <div class="bar">
+          <div class="track">
+            <div class="seg novel" data-s="0.06"></div>
+            <div class="seg out" data-s="0.21"></div>
+            <div class="head"></div>
+          </div>
+          <div class="total">~0.3s</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><a href="https://huggingface.co/datasets/xlangai/AgentNet">computer use</a> &middot; median step**</div>
+
+      <div class="row" style="--d:0s">
+        <div class="row-label">no cache reuse</div>
+        <div class="bar">
+          <div class="track">
+            <div class="seg cached" data-s="6.78"></div>
+            <div class="seg novel" data-s="0.41"></div>
+            <div class="seg out" data-s="8.16"></div>
+            <div class="head"></div>
+          </div>
+          <div class="total">15.4s</div>
+        </div>
+      </div>
+
+      <div class="row" style="--d:.18s">
+        <div class="row-label">cache reuse</div>
+        <div class="bar">
+          <div class="track">
+            <div class="seg novel" data-s="0.41"></div>
+            <div class="seg out" data-s="8.16"></div>
+            <div class="head"></div>
+          </div>
+          <div class="total">8.6s</div>
+        </div>
+      </div>
+
+      <div class="row ours" style="--d:.36s">
+        <div class="row-label">superfast***</div>
+        <div class="bar">
+          <div class="track">
+            <div class="seg novel" data-s="0.41"></div>
+            <div class="seg out" data-s="1.5"></div>
+            <div class="head"></div>
+          </div>
+          <div class="total">~1.9s</div>
+        </div>
+      </div>
+
+      <div class="axis" id="axis">
+        <span>0</span><span>4</span><span>8</span><span>12</span><span>16 s</span>
+      </div>
+
+      <p class="fn">*18.4K cached context + 300 novel + 63 output tokens. cache reuse processes only novel tokens.<br>
+      **33.9K cached context + 2K novel (one screenshot) + 449 output tokens. cache reuse processes only novel tokens.<br>
+      ***running Qwen3.8-27B on our own stack.</p>
+    </div>
+    </div>
+  </div>
+</section>
 
 <script>
   const form = document.getElementById('access');
@@ -216,11 +510,42 @@
       });
       if (!res.ok) throw new Error();
       form.reset();
-      note.textContent = 'you are on the list.';
+      note.textContent = 'we will be in touch soon.';
     } catch {
       note.innerHTML = 'could not reach the server — mail <a href="mailto:hello@superfastinference.com">hello@superfastinference.com</a> instead.';
     }
   });
+
+  // chart: seconds → px, snapped to the 8px dot grid so no dot ever clips
+  const chart = document.getElementById('chart');
+  const axis = document.getElementById('axis');
+  const AXIS_S = 16;
+
+  function layoutChart() {
+    const gutter = 76; // room for the total label right of the longest bar
+    const cs = getComputedStyle(chart);
+    const content = chart.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const scale = Math.min(44, (content - gutter) / AXIS_S);
+    chart.querySelectorAll('.seg').forEach(el => {
+      const px = parseFloat(el.dataset.s) * scale;
+      el.style.width = Math.max(8, Math.round(px / 8) * 8) + 'px';
+    });
+    axis.style.width = (AXIS_S * scale) + 'px';
+  }
+
+  layoutChart();
+  addEventListener('resize', layoutChart);
+
+  const seen = new IntersectionObserver((entries) => {
+    for (const en of entries) {
+      if (en.isIntersecting) {
+        en.target.classList.add('go');
+        seen.unobserve(en.target);
+      }
+    }
+  }, { threshold: 0.35 });
+
+  chart.querySelectorAll('.panel').forEach(p => seen.observe(p));
 </script>
 </body>
 </html>
