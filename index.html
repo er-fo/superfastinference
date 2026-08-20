@@ -3,12 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Superfast Inference — Your agents, 10x faster.</title>
+<title>Superfast Inference — Your agents, served 10x faster.</title>
 <meta name="description" content="Same models. A tenth of the wait. Open-weights inference built for agents.">
 <meta property="og:title" content="Superfast Inference">
-<meta property="og:description" content="Your agents, 10x faster. Same models. A tenth of the wait.">
+<meta property="og:description" content="Your agents, served 10x faster. Same models. A tenth of the wait.">
 <meta property="og:url" content="https://superfastinference.com">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Superfast Inference — Your agents, served 10x faster.">
+<meta name="twitter:description" content="Open-weight model inference built for agent loops. Same models. A tenth of the wait.">
+<link rel="canonical" href="https://superfastinference.com/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Superfast Inference",
+  "url": "https://superfastinference.com",
+  "email": "erik@superfastinference.com",
+  "description": "Open-weight model inference built for AI agents. KV cache held across turns, fast decode, same open models at a tenth of the wait.",
+  "founder": {
+    "@type": "Person",
+    "name": "Erik Fornlund",
+    "sameAs": "https://linkedin.com/in/erik-fornlund"
+  }
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F0ECE2'/%3E%3Cg fill='%23C4340C'%3E%3Ccircle cx='8' cy='8' r='3'/%3E%3Ccircle cx='16' cy='8' r='3'/%3E%3Ccircle cx='24' cy='8' r='3'/%3E%3Ccircle cx='8' cy='16' r='3'/%3E%3Ccircle cx='8' cy='24' r='3'/%3E%3Ccircle cx='16' cy='24' r='3'/%3E%3Ccircle cx='24' cy='24' r='3'/%3E%3Ccircle cx='24' cy='16' r='3'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +75,7 @@
   h1 {
     font-family: 'Doto', sans-serif;
     font-weight: 800;
-    font-size: clamp(34px, 10.5vw, 108px);
+    font-size: clamp(26px, 6.6vw, 68px);
     line-height: 1.04;
     letter-spacing: -0.01em;
   }
@@ -412,7 +431,7 @@
   <div class="inner">
     <h1>
       <span class="sweep l1"><span class="reveal">Your agents,</span><span class="head"></span></span>
-      <span class="sweep l2"><span class="reveal">10x faster.</span><span class="head"></span></span>
+      <span class="sweep l2"><span class="reveal">served 10x faster.</span><span class="head"></span></span>
     </h1>
 
     <div class="below">
@@ -435,8 +454,8 @@
     <div class="box" id="chart">
     <h2>Agent speed</h2>
     <div class="legend">
-      <span class="k-cached">cached tokens</span>
-      <span class="k-novel">novel tokens</span>
+      <span class="k-cached">prior context</span>
+      <span class="k-novel">new this turn</span>
       <span class="k-out">output tokens</span>
       <span class="k-ours">superfast (same token types)</span>
     </div>
@@ -454,7 +473,7 @@
             <div class="seg out" data-s="1.11"></div>
             <div class="head"></div>
           </div>
-          <div class="total">4.9s</div>
+          <div class="total">~4.9s</div>
           <span class="score">79.2</span>
         </div>
       </div>
@@ -467,7 +486,7 @@
             <div class="seg out" data-s="1.11"></div>
             <div class="head"></div>
           </div>
-          <div class="total">1.2s</div>
+          <div class="total">~1.2s</div>
           <span class="score">79.2</span>
         </div>
       </div>
@@ -499,7 +518,7 @@
             <div class="seg out" data-s="7.89"></div>
             <div class="head"></div>
           </div>
-          <div class="total">15.1s</div>
+          <div class="total">~15.1s</div>
           <span class="score">70.6</span>
         </div>
       </div>
@@ -512,7 +531,7 @@
             <div class="seg out" data-s="7.89"></div>
             <div class="head"></div>
           </div>
-          <div class="total">8.3s</div>
+          <div class="total">~8.3s</div>
           <span class="score">70.6</span>
         </div>
       </div>
@@ -534,8 +553,8 @@
         <span>0</span><span>4</span><span>8</span><span>12</span><span>16 s</span>
       </div>
 
-      <p class="fn">*18.4K cached context + 300 novel + 63 output tokens. cache reuse processes only novel tokens.<br>
-      **33.9K cached context + 2K novel (one screenshot) + 449 output tokens. cache reuse processes only novel tokens.<br>
+      <p class="fn">*18.4K prior context + 300 new + 63 output tokens. without cache reuse, prior context is re-processed every turn.<br>
+      **33.9K prior context + 2K new (one screenshot) + 449 output tokens. without cache reuse, prior context is re-processed every step.<br>
       opus 5 rows modelled at its measured api output speed.<br>
       ***running Qwen3.8-27B on our own stack.</p>
     </div>
